@@ -1,5 +1,5 @@
 fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
-CR_DURATION,CR Duration,Int,1000000,,"Peak Performance Time in seconds. 
+CR_DURATION,CR Duration,Int,100000,,"Peak Performance Time in seconds. 
 
 A value equal or larger than 1000000 (or 100k) seconds will result in infinite Peak Performance Time or PPT.",0,100000,Main
 CR_LOSS,CR Loss /s multiplier,Double,0.0,,"Combat Readiness reduction per second multiplier when Peak Performance Time runs out.
