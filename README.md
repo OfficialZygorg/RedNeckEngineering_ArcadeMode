@@ -11,3 +11,5 @@ Fuel storage increased by x\
 Crew capacity increased by x
 
 All of these values can be modified on the LunaLib settings in the main menu, without the need to reload the game.
+
+Fractalsoftworks page: https://fractalsoftworks.com/forum/index.php?topic=34908
