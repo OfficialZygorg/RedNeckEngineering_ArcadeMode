@@ -1,0 +1,12 @@
+name,id,tier,rarity,tech/manufacturer,tags,uiTags,base value,unlocked,hidden,hiddenEverywhere,cost_frigate,cost_dest,cost_cruiser,cost_capital,script,desc,short,sModDesc,sprite
+Arcade Mode,RNE_AM_ArcadeMode,0,,Red Neck Engineering,"special, merc, standard",Special,0,FALSE,TRUE,,0,0,0,0,zygorg.rne_am.hullmods.RNE_AM_ArcadeMode,"Arcade Mode enabled for this ship.
+
+Adds:
+%s extra seconds of PPT
+%s CR Degradation multiplier
+Supplies maintenance per month multiplied by %s
+Fuel usage multiplied by %s
+Supply usage to deploy a ship into combat multiplied by %s
+Cargo storage increased by %s
+Fuel storage increased by %s
+Crew capacity increased by %s",,,graphics/hullmods/rne_hm_placeholder.png

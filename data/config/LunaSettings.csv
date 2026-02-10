@@ -1,0 +1,19 @@
+fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
+CR_DURATION,CR Duration,Int,1000000,,"Peak Performance Time in seconds. 
+
+A value equal or larger than 1000000 (or 100k) seconds will result in infinite Peak Performance Time or PPT.",0,100000,Main
+CR_LOSS,CR Loss /s multiplier,Double,0.0,,"Combat Readiness reduction per second multiplier when Peak Performance Time runs out.
+
+A value less than 1.0 means that the ship CR will reduce slower.",0.01,10.0,Main
+SPP_REDUCTION_MULT,Multiplier to supplies per month,Double,0.01,,"Multiplier to the supplies per month of a ship.
+
+A value less than 1.0 means that the ship will consume less supplies per month.",0.01,10.0,Main
+FU_REDUCTION_MULT,Multiplier to fuel usage,Double,0.01,,"Multiplier to the ship fuel usage.
+
+A value less than 1.0 means that the ship will consume less fuel/ly.",0.01,10.0,Main
+STR_REDUCTION_MULT,Multiplier to supplies for ship deployment,Double,0.01,,"Multiplier to the supplies used when a ship is deployed.
+
+A value less than 1.0 means that the ship will consume less supplies per deployment.",0.01,10.0,Main
+STORAGE,Extra Storage Space,Int,1000,,Extra storage capacity for the ship.,0.0,10000,Main
+FUEL,Extra Fuel Space,Int,1000,,Extra fuel capacity for the ship.,0.0,10000,Main
+CREW,Extra Crew Space,Int,500,,Extra crew capacity for the ship.,0.0,10000,Main

@@ -1,0 +1,28 @@
+{
+  "id": "zzzzRNE_AM",
+  "name": "Red Neck Engineering - Arcade Mode",
+  "author": "Zygorg",
+  "totalConversion": "false",
+  "utility": "false",
+  "version": {
+    "major": 0,
+    "minor": 1,
+    "patch": 0
+  },
+  "description": "Take your time doing stuff!\nCredits to Improved Smaller Ship PPT by tom for the idea.\nMod link: https://fractalsoftworks.com/forum/index.php?topic=34317\nThanks to ruddygreat (USC) for the help while i was having issues on the modplugin\nThanks to u/Pizzarugi (Reddit) for the LunaLib idea",
+  "gameVersion": "0.98",
+  "jars": [
+    "jars/RNE_AM.jar"
+  ],
+  "modPlugin": "zygorg.rne_am.plugins.RNE_AM_ModPlugin",
+  "dependencies": [
+    {
+      "id": "lw_lazylib",
+      "name": "LazyLib"
+    },
+    {
+      "id": "lunalib",
+      "name": "LunaLib"
+    }
+  ]
+}
