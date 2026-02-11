@@ -15,8 +15,8 @@ All of these values can be modified on the LunaLib settings in the main menu, wi
 I just wanted to take my time doing stuff in SS without worrying about the ships resources (maintenance and fuel), and here we are!
 Credits on the modinfo.json
 
-Requires:
--LunaLib: https://fractalsoftworks.com/forum/index.php?topic=25658
+Requires:\
+-LunaLib: https://fractalsoftworks.com/forum/index.php?topic=25658 \
 -LazyLib: https://fractalsoftworks.com/forum/index.php?topic=5444.0
 
 Fractalsoftworks page: https://fractalsoftworks.com/forum/index.php?topic=34908
