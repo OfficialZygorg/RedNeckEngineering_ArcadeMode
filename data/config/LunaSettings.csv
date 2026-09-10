@@ -1,7 +1,7 @@
 fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
 campaignLayerHeader,Campaign Layer Settings,Header,Campaign Settings,,,,,Campaign
 combatLayerHeader,Combat Layer Settings,Header,Combat Settings,,,,,Combat
-pptDurationType,CR Duration Type,Radio,None,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Combat
+pptDurationType,CR Duration Type,Radio,Add,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Combat
 pptDuration,CR Duration,Int,0,,"Adds/reduces/multiplies/divides the Peak Performance Time (Aka, the time the ship has before its Combat Readiness starts dropping)
 
 A value greater than 100k (Or 100000) in a ship's PPT will make it ""Unlimited"" in the Combat Layer",,,Combat
