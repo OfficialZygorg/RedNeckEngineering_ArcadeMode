@@ -14,5 +14,8 @@ Modified:
 - Modified the README.md
 - Modified the hullmod descriptions
 
+Fixed:
+- Lots of errors while Revamping
+
 !Unknown compatibility with 0.1.0 and bellow!
 !Unknown if you can disable the mod once you use it in a save!

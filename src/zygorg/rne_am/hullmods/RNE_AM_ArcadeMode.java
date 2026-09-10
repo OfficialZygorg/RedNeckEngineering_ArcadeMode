@@ -6,15 +6,16 @@ import java.util.Map;
 import lunalib.lunaSettings.LunaSettings;
 import lunalib.lunaSettings.LunaSettingsListener;
 public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListener {
-  public static String PPT_DURATION_TYPE = LunaSettings.getString("RNE_AM", "pptDurationType");
-  public static float PPT_DURATION = LunaSettings.getFloat("RNE_AM", "pptDuration"); //Modifies the CR time of the ships
-  //  public static float CR_LOSS = LunaSettings.getFloat("RNE_AM", "crLoss"); // Modifies the CR Loss per second
-  //  public static float SPM = LunaSettings.getFloat("RNE_AM", "suppliesPerMonth"); // Modifies the suplies per month of ships
-  //  public static float FU = LunaSettings.getFloat("RNE_AM", "fuelUsage"); // Modifies the fuel usage per month of ships
-  //  public static float STR = LunaSettings.getFloat("RNE_AM", "suppliesToRecover"); // Modifies the supplies to recover a ship after combat
-  //  public static float STORAGE = LunaSettings.getFloat("RNE_AM", "storage"); // Modifies the storage capacity to the ship
-  //  public static float FUEL = LunaSettings.getFloat("RNE_AM", "fuel"); // Modifies the fuel capacity to the ship
-  //  public static float CREW = LunaSettings.getFloat("RNE_AM", "crew"); // Modifies the crew capacity to the ship
+  public static String MOD_ID = "zzzzRNE_AM";
+  public static String PPT_DURATION_TYPE = LunaSettings.getString(MOD_ID, "pptDurationType");
+  public static float PPT_DURATION = LunaSettings.getFloat(MOD_ID, "pptDuration"); //Modifies the CR time of the ships
+  //  public static float CR_LOSS = LunaSettings.getFloat(MOD_ID, "crLoss"); // Modifies the CR Loss per second
+  //  public static float SPM = LunaSettings.getFloat(MOD_ID, "suppliesPerMonth"); // Modifies the suplies per month of ships
+  //  public static float FU = LunaSettings.getFloat(MOD_ID, "fuelUsage"); // Modifies the fuel usage per month of ships
+  //  public static float STR = LunaSettings.getFloat(MOD_ID, "suppliesToRecover"); // Modifies the supplies to recover a ship after combat
+  //  public static float STORAGE = LunaSettings.getFloat(MOD_ID, "storage"); // Modifies the storage capacity to the ship
+  //  public static float FUEL = LunaSettings.getFloat(MOD_ID, "fuel"); // Modifies the fuel capacity to the ship
+  //  public static float CREW = LunaSettings.getFloat(MOD_ID, "crew"); // Modifies the crew capacity to the ship
   public static Map<String, String> TYPES = Map.of(
           "Add", "+",
           "Subtract", "-",
@@ -34,14 +35,14 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
   }
   @Override
   public void settingsChanged(String modID) throws NullPointerException {
-    PPT_DURATION = LunaSettings.getFloat("RNE_AM", "pptDuration");
-    //    CR_LOSS = LunaSettings.getFloat("RNE_AM", "crLoss");
-    //    SPM = LunaSettings.getFloat("RNE_AM", "SPM");
-    //    FU = LunaSettings.getFloat("RNE_AM", "fu");
-    //    STR = LunaSettings.getFloat("RNE_AM", "str");
-    //    STORAGE = LunaSettings.getFloat("RNE_AM", "storage");
-    //    FUEL = LunaSettings.getFloat("RNE_AM", "fuel");
-    //    CREW = LunaSettings.getFloat("RNE_AM", "crew");
+    PPT_DURATION = LunaSettings.getFloat(MOD_ID, "pptDuration");
+    //    CR_LOSS = LunaSettings.getFloat(MOD_ID, "crLoss");
+    //    SPM = LunaSettings.getFloat(MOD_ID, "SPM");
+    //    FU = LunaSettings.getFloat(MOD_ID, "fu");
+    //    STR = LunaSettings.getFloat(MOD_ID, "str");
+    //    STORAGE = LunaSettings.getFloat(MOD_ID, "storage");
+    //    FUEL = LunaSettings.getFloat(MOD_ID, "fuel");
+    //    CREW = LunaSettings.getFloat(MOD_ID, "crew");
   }
   @Override
   public String getDescriptionParam(int index, ShipAPI.HullSize hullSize) {
