@@ -9,9 +9,9 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
   public static String PPT_DURATION_TYPE = LunaSettings.getString("RNE_AM", "pptDurationType");
   public static float PPT_DURATION = LunaSettings.getFloat("RNE_AM", "pptDuration"); //Modifies the CR time of the ships
   //  public static float CR_LOSS = LunaSettings.getFloat("RNE_AM", "crLoss"); // Modifies the CR Loss per second
-  //  public static float SPP = LunaSettings.getFloat("RNE_AM", "spp"); // Modifies the suplies per month of ships
-  //  public static float FU = LunaSettings.getFloat("RNE_AM", "fu"); // Modifies the fuel usage per month of ships
-  //  public static float STR = LunaSettings.getFloat("RNE_AM", "str"); // Modifies the supplies to recover a ship after combat
+  //  public static float SPM = LunaSettings.getFloat("RNE_AM", "suppliesPerMonth"); // Modifies the suplies per month of ships
+  //  public static float FU = LunaSettings.getFloat("RNE_AM", "fuelUsage"); // Modifies the fuel usage per month of ships
+  //  public static float STR = LunaSettings.getFloat("RNE_AM", "suppliesToRecover"); // Modifies the supplies to recover a ship after combat
   //  public static float STORAGE = LunaSettings.getFloat("RNE_AM", "storage"); // Modifies the storage capacity to the ship
   //  public static float FUEL = LunaSettings.getFloat("RNE_AM", "fuel"); // Modifies the fuel capacity to the ship
   //  public static float CREW = LunaSettings.getFloat("RNE_AM", "crew"); // Modifies the crew capacity to the ship
@@ -25,7 +25,7 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
   public void applyEffectsBeforeShipCreation(ShipAPI.HullSize hullSize, MutableShipStatsAPI stats, String id) {
     stats.getPeakCRDuration().modifyFlat(id, PPT_DURATION); //PPT Duration
     //    stats.getCRLossPerSecondPercent().modifyMult(id, CR_LOSS); //CR Degradation per second once the PPT reaches 0
-    //    stats.getSuppliesPerMonth().modifyMult(id, SPP); //Supplies per month cost of the ship
+    //    stats.getSuppliesPerMonth().modifyMult(id, SPM); //Supplies per month cost of the ship
     //    stats.getFuelUseMod().modifyMult(id, FU); //Fuel usage per light year of the ship
     //    stats.getSuppliesToRecover().modifyMult(id, STR); //Supply usage per fight
     //    stats.getCargoMod().modifyFlat(id, STORAGE); //Cargo capacity of the ship
@@ -36,7 +36,7 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
   public void settingsChanged(String modID) throws NullPointerException {
     PPT_DURATION = LunaSettings.getFloat("RNE_AM", "pptDuration");
     //    CR_LOSS = LunaSettings.getFloat("RNE_AM", "crLoss");
-    //    SPP = LunaSettings.getFloat("RNE_AM", "spp");
+    //    SPM = LunaSettings.getFloat("RNE_AM", "SPM");
     //    FU = LunaSettings.getFloat("RNE_AM", "fu");
     //    STR = LunaSettings.getFloat("RNE_AM", "str");
     //    STORAGE = LunaSettings.getFloat("RNE_AM", "storage");
@@ -47,7 +47,7 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
   public String getDescriptionParam(int index, ShipAPI.HullSize hullSize) {
     if (index == 0) return getType(PPT_DURATION_TYPE) + PPT_DURATION;
     //    if (index == 1) return String.valueOf(CR_LOSS);
-    //    if (index == 2) return String.valueOf(SPP);
+    //    if (index == 2) return String.valueOf(SPM);
     //    if (index == 3) return String.valueOf(FU);
     //    if (index == 4) return String.valueOf(STR);
     //    if (index == 5) return String.valueOf(STORAGE);

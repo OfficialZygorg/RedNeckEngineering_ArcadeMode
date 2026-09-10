@@ -1,7 +1,7 @@
 RedNeckEngineering_ArcadeMode
 
-Adds a hullmod with:\
-x extra seconds of PPT\
+Adds a hullmod that modifies in a ship:\
+PPT, CR Degradation rate, Supply Per Month
 x CR Degradation multiplier\
 Supplies maintenance per month multiplied by x\
 Fuel usage multiplied by x\
