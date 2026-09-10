@@ -1,16 +1,18 @@
 Version 0.1.1
 
 Added:
--Versioning file
--Changelog file
--Update checker
--Placeholder mod image for TriOS
--Python script that makes a zip of the mod (Used ChatGPT because idk python)
+- Versioning file
+- Changelog file
+- Update checker
+- Placeholder mod image for TriOS
+- Python script that makes a zip of the mod (Used ChatGPT because idk python)
+
 Modified:
--Revamped LunaLib settings
--Revamped how the mod uses the settings
--Made the mod a utility mod
--Modified the README.md
--Modified the hullmod descriptions
+- Revamped LunaLib settings
+- Revamped how the mod uses the settings
+- Made the mod a utility mod
+- Modified the README.md
+- Modified the hullmod descriptions
+
 !Unknown compatibility with 0.1.0 and bellow!
 !Unknown if you can disable the mod once you use it in a save!
