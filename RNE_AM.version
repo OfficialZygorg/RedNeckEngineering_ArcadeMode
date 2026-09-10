@@ -12,7 +12,7 @@
     # that the JRE that ships with Starsector does not include).
     #
     # A link to the raw .version JSON data
-    "masterVersionFile":"https://raw.githubusercontent.com/OfficialZygorg/RedNeckEngineering_ArcadeMode/master/RNE_AM.version",
+    "masterVersionFile":"https://raw.githubusercontent.com/OfficialZygorg/RedNeckEngineering_ArcadeMode/dev/RNE_AM.version",
 
     # The name that is displayed in-game for your mod
     "modName":"Red Neck Engineering - Arcade Mode",
@@ -51,5 +51,5 @@
 
     # Point at a directly accessible text file; fetched from the online version file
     # The contents of said file will be shown for that mod in LunaLib's main menu version checker UI
-    "changelogURL":"https://raw.githubusercontent.com/OfficialZygorg/RedNeckEngineering_ArcadeMode/master/refs/heads/master/changelog.txt"
+    "changelogURL":"https://raw.githubusercontent.com/OfficialZygorg/RedNeckEngineering_ArcadeMode/refs/heads/dev/changelog.txt"
 }
