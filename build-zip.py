@@ -89,16 +89,16 @@ def sync_mod_version():
 
     version = mod_info["version"]
 
-    major = version["major"]
-    minor = version["minor"]
-    patch = version["patch"]
+    major = format_version_value(version["major"])
+    minor = format_version_value(version["minor"])
+    patch = format_version_value(version["patch"])
 
     with MOD_VERSION_FILE.open("r", encoding="utf-8") as file:
         mod_version_content = file.read()
 
     pattern = (
         r'("modVersion"\s*:\s*\{'
-        r'.*?"major"\s*:\s*)'
+        r'[\s\S]*?"major"\s*:\s*)'
         r'([^,\s]+)'
         r'(\s*,\s*"minor"\s*:\s*)'
         r'([^,\s]+)'
