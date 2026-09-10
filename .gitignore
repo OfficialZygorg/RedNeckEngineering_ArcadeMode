@@ -1,6 +1,7 @@
 # Default ignored files
 out
+zips
 *.zip
-*.csv#
 .git
 jars
+*.jar

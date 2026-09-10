@@ -2,6 +2,7 @@ import json
 import shutil
 import subprocess
 import tempfile
+import re
 from pathlib import Path
 
 # ============================================================
@@ -11,6 +12,8 @@ from pathlib import Path
 PROJECT_DIR = Path(__file__).resolve().parent
 MOD_INFO_FILE = PROJECT_DIR / "mod_info.json"
 JAR_FILE = PROJECT_DIR / "jars" / "RNE_AM.jar"
+OUTPUT_DIRECTORY = PROJECT_DIR / "zips"
+MOD_VERSION_FILE = PROJECT_DIR / "RNE_AM.version"
 
 # Files that should NOT be included in the release ZIP.
 EXCLUDED_PATHS = {
@@ -79,6 +82,62 @@ def copy_file(source, destination):
     destination.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(source, destination)
 
+def sync_mod_version():
+    """Synchronize modVersion in RNE_AM.version with mod_info.json."""
+    with MOD_INFO_FILE.open("r", encoding="utf-8") as file:
+        mod_info = json.load(file)
+
+    version = mod_info["version"]
+
+    major = version["major"]
+    minor = version["minor"]
+    patch = version["patch"]
+
+    with MOD_VERSION_FILE.open("r", encoding="utf-8") as file:
+        mod_version_content = file.read()
+
+    pattern = (
+        r'("modVersion"\s*:\s*\{'
+        r'.*?"major"\s*:\s*)'
+        r'([^,\s]+)'
+        r'(\s*,\s*"minor"\s*:\s*)'
+        r'([^,\s]+)'
+        r'(\s*,\s*"patch"\s*:\s*)'
+        r'([^#,\s]+)'
+        r'(\s*#.*)'
+    )
+
+    replacement = (
+        rf'\g<1>{major}'
+        rf'\g<3>{minor}'
+        rf'\g<5>{patch}'
+        rf'\g<7>'
+    )
+
+    updated_content, replacements = re.subn(
+        pattern,
+        replacement,
+        mod_version_content,
+        count=1,
+    )
+
+    if replacements != 1:
+        raise RuntimeError(
+            "Could not find the modVersion block in RNE_AM.version."
+        )
+
+    MOD_VERSION_FILE.write_text(
+        updated_content,
+        encoding="utf-8",
+    )
+
+def format_version_value(value):
+    """Format a version value for RNE_AM.version."""
+    if isinstance(value, str):
+        return json.dumps(value)
+
+    return str(value)
+
 
 # ============================================================
 # Main
@@ -100,6 +159,11 @@ def main():
                 f"Could not find {MOD_INFO_FILE}"
             )
 
+        if not MOD_VERSION_FILE.exists():
+            raise FileNotFoundError(
+                f"Could not find {MOD_VERSION_FILE}"
+            )
+
         if not JAR_FILE.exists():
             raise FileNotFoundError(
                 "\n"
@@ -113,10 +177,16 @@ def main():
         # ----------------------------------------------------
 
         version = get_version()
+
+        print("Synchronizing RNE_AM.version...")
+        sync_mod_version()
+
         project_name = PROJECT_DIR.name
 
+        OUTPUT_DIRECTORY.mkdir(parents=True, exist_ok=True)
+
         output_file = (
-            PROJECT_DIR / f"{project_name}-{version}.zip"
+            OUTPUT_DIRECTORY / f"{project_name}-{version}.zip"
         )
 
         print(f"Project : {project_name}")
