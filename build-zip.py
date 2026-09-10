@@ -84,6 +84,7 @@ def copy_file(source, destination):
 
 def sync_mod_version():
     """Synchronize modVersion in RNE_AM.version with mod_info.json."""
+
     with MOD_INFO_FILE.open("r", encoding="utf-8") as file:
         mod_info = json.load(file)
 
@@ -94,37 +95,52 @@ def sync_mod_version():
     patch = format_version_value(version["patch"])
 
     with MOD_VERSION_FILE.open("r", encoding="utf-8") as file:
-        mod_version_content = file.read()
+        content = file.read()
 
-    pattern = (
-        r'("modVersion"\s*:\s*\{'
-        r'[\s\S]*?"major"\s*:\s*)'
-        r'([^,\s]+)'
-        r'(\s*,\s*"minor"\s*:\s*)'
-        r'([^,\s]+)'
-        r'(\s*,\s*"patch"\s*:\s*)'
-        r'([^#,\s]+)'
-        r'(\s*#.*)'
+    # Find the modVersion block only.
+    mod_version_pattern = re.compile(
+        r'("modVersion"\s*:\s*\{)(.*?)(\})',
+        re.DOTALL,
     )
 
-    replacement = (
-        rf'\g<1>{major}'
-        rf'\g<3>{minor}'
-        rf'\g<5>{patch}'
-        rf'\g<7>'
-    )
+    match = mod_version_pattern.search(content)
 
-    updated_content, replacements = re.subn(
-        pattern,
-        replacement,
-        mod_version_content,
-        count=1,
-    )
-
-    if replacements != 1:
+    if not match:
         raise RuntimeError(
             "Could not find the modVersion block in RNE_AM.version."
         )
+
+    block = match.group(0)
+
+    # Replace only the values.
+    block = re.sub(
+        r'("major"\s*:\s*)[^,\s]+',
+        rf'\g<1>{major}',
+        block,
+        count=1,
+    )
+
+    block = re.sub(
+        r'("minor"\s*:\s*)[^,\s]+',
+        rf'\g<1>{minor}',
+        block,
+        count=1,
+    )
+
+    # The patch value stops at the #, preserving the comment.
+    block = re.sub(
+        r'("patch"\s*:\s*)[^#,\s]+',
+        rf'\g<1>{patch}',
+        block,
+        count=1,
+    )
+
+    # Put the modified block back into the complete file.
+    updated_content = (
+            content[:match.start()]
+            + block
+            + content[match.end():]
+    )
 
     MOD_VERSION_FILE.write_text(
         updated_content,
