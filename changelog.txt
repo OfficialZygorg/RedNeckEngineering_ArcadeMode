@@ -1,0 +1,12 @@
+0.1.1
+Added:
+-Versioning file
+-Changelog file
+-Update checker
+-Placeholder mod image
+Modified:
+-Revamped LunaLib settings
+-Revamped how the mod uses the settings
+-Made the mod a utility mod
+!Unknown compatibility with 0.1.0 and bellow!
+!Unknown if you can disable the mod once you use it in a save!

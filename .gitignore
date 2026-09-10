@@ -3,3 +3,5 @@ out
 *.zip
 *.csv#
 .git
+*.iml
+.idea

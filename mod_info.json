@@ -3,11 +3,11 @@
   "name": "Red Neck Engineering - Arcade Mode",
   "author": "Zygorg",
   "totalConversion": "false",
-  "utility": "false",
+  "utility": "true",
   "version": {
     "major": 0,
     "minor": 1,
-    "patch": 0
+    "patch": 1
   },
   "description": "Take your time doing stuff!\nCredits to Improved Smaller Ship PPT by tom for the idea.\nMod link: https://fractalsoftworks.com/forum/index.php?topic=34317\nThanks to ruddygreat (USC) for the help while i was having issues on the modplugin\nThanks to u/Pizzarugi (Reddit) for the LunaLib idea",
   "gameVersion": "0.98",
