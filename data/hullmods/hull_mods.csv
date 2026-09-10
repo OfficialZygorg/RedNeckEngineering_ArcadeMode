@@ -1,4 +1,4 @@
 name,id,tier,rarity,tech/manufacturer,tags,uiTags,base value,unlocked,hidden,hiddenEverywhere,cost_frigate,cost_dest,cost_cruiser,cost_capital,script,desc,short,sModDesc,sprite
 Arcade Mode,RNE_AM_ArcadeMode,0,,Red Neck Engineering,"special, merc, standard",Special,0,FALSE,TRUE,,0,0,0,0,zygorg.rne_am.hullmods.RNE_AM_ArcadeMode,"Arcade Mode enabled for this ship.
 
-PPT: %s",,,graphics/hullmods/rne_hm_placeholder.png
+PPT: %s",,,graphics/hullmods/rne_hm_placeholder.jpg
