@@ -185,7 +185,7 @@ def main():
                 "\n"
                 "Could not find the compiled JAR:\n"
                 f"  {JAR_FILE}\n\n"
-                "Build the project in IntelliJ IDEA first."
+                "Build the project in IntelliJ IDEA first or on your prefered IDE."
             )
 
         # ----------------------------------------------------
@@ -194,7 +194,7 @@ def main():
 
         version = get_version()
 
-        print("Synchronizing RNE_AM.version...")
+        print("Synchronizing .version file with mod_info.json...")
         sync_mod_version()
 
         project_name = PROJECT_DIR.name
@@ -231,7 +231,7 @@ def main():
         # ----------------------------------------------------
 
         with tempfile.TemporaryDirectory(
-            prefix="rne_am_build_"
+            prefix="temp_build_dir"
         ) as temp_directory:
 
             temp_directory = Path(temp_directory)
