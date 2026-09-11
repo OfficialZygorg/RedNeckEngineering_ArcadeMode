@@ -28,7 +28,7 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
           "Add", "+",
           "Subtract", "-",
           "Multiply", "x",
-          "Divide", "/"
+          "Divide", "/" //
   );
   @Override
   public void applyEffectsBeforeShipCreation(ShipAPI.HullSize hullSize, MutableShipStatsAPI stats, String id) {
