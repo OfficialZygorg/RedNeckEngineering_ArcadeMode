@@ -89,7 +89,7 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
         break;
       case "Divide":
         if (value == 0f) return; //Can't divide by 0
-        stat.modifyMult(id, -value);
+        stat.modifyMult(id, 1f / value);
         break;
     }
   }
