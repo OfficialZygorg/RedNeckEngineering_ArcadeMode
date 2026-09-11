@@ -29,21 +29,18 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
           "Add", "+",
           "Subtract", "-",
           "Multiply", "x",
-          "Divide", "/" //
+          "Divide", "/"
   );
   @Override
   public void applyEffectsBeforeShipCreation(ShipAPI.HullSize hullSize, MutableShipStatsAPI stats, String id) {
-    Map<MutableShipStatsAPI, Object[]> STATS = Map.of(
-            (MutableShipStatsAPI) stats.getPeakCRDuration(), new Object[] {PPT_DURATION, PPT_DURATION_TYPE}, //PPT Duration
-            (MutableShipStatsAPI) stats.getCRLossPerSecondPercent(), new Object[] {CR_LOSS, CR_LOSS_TYPE}, //CR Degradation per second once the PPT reaches 0
-            (MutableShipStatsAPI) stats.getSuppliesPerMonth(), new Object[] {SPM, SPM_TYPE}, //Supplies per month cost of the ship
-            (MutableShipStatsAPI) stats.getFuelUseMod(), new Object[] {FU, FU_TYPE}, //Fuel usage per light year of the ship
-            (MutableShipStatsAPI) stats.getSuppliesToRecover(), new Object[] {STR, STR_TYPE}, //Supply usage per fight
-            (MutableShipStatsAPI) stats.getCargoMod(), new Object[] {STORAGE, STORAGE_TYPE}, //Cargo capacity of the ship
-            (MutableShipStatsAPI) stats.getFuelMod(), new Object[] {FUEL, FUEL_TYPE}, //Fuel capacity of the ship
-            (MutableShipStatsAPI) stats.getMaxCrewMod(), new Object[] {CREW, CREW_TYPE} //Crew capacity of the ship
-    );
-    STATS.forEach((stat, values) -> modifyStat(stat, id, (float) values[0], (String) values[1]));
+    modifyStat(stats.getPeakCRDuration(), id, PPT_DURATION, PPT_DURATION_TYPE);
+    modifyStat(stats.getCRLossPerSecondPercent(), id, CR_LOSS, CR_LOSS_TYPE);
+    modifyStat(stats.getSuppliesPerMonth(), id, SPM, SPM_TYPE);
+    modifyStat(stats.getFuelUseMod(), id, FU, FU_TYPE);
+    modifyStat(stats.getSuppliesToRecover(), id, STR, STR_TYPE);
+    modifyStat(stats.getCargoMod(), id, STORAGE, STORAGE_TYPE);
+    modifyStat(stats.getFuelMod(), id, FUEL, FUEL_TYPE);
+    modifyStat(stats.getMaxCrewMod(), id, CREW, CREW_TYPE);
   }
   @Override
   public void settingsChanged(String modID) throws NullPointerException {
