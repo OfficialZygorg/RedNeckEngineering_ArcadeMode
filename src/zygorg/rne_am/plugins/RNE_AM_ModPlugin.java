@@ -2,7 +2,6 @@ package zygorg.rne_am.plugins;
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
-import lunalib.lunaSettings.LunaSettingsListener;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import lunalib.lunaSettings.LunaSettings;

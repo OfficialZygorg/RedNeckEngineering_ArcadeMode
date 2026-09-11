@@ -1,50 +1,115 @@
 package zygorg.rne_am.hullmods;
 import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
+import com.fs.starfarer.api.combat.MutableStat;
 import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.StatBonus;
+import java.util.Map;
 import lunalib.lunaSettings.LunaSettings;
 import lunalib.lunaSettings.LunaSettingsListener;
 public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListener {
-  public static float CR_DURATION = LunaSettings.getFloat("zzzzRNE_AM", "CR_DURATION"); // Anithing above 100k in seconds the game considers it infinite
-  public static float CR_LOSS = LunaSettings.getFloat("zzzzRNE_AM", "CR_LOSS"); // Multiply the CR Loss by 0, to have 0 combat readiness loss per second
-  public static float SPP_REDUCTION_MULT = LunaSettings.getFloat("zzzzRNE_AM", "SPP_REDUCTION_MULT"); // Lower the suplies per month of ships by 99.99%
-  public static float FU_REDUCTION_MULT = LunaSettings.getFloat("zzzzRNE_AM", "FU_REDUCTION_MULT"); // Lower the suplies per month of ships by 99.99%
-  public static float STR_REDUCTION_MULT = LunaSettings.getFloat("zzzzRNE_AM", "STR_REDUCTION_MULT"); // Lower the suplies per month of ships by 99.99%
-  public static float STORAGE = LunaSettings.getFloat("zzzzRNE_AM", "STORAGE"); // Add an extra 1000 storage capacity to the ship
-  public static float FUEL = LunaSettings.getFloat("zzzzRNE_AM", "FUEL"); // Add an extra 1000 fuel capacity to the ship
-  public static float CREW = LunaSettings.getFloat("zzzzRNE_AM", "CREW"); // Add an extra 1000 crew capacity to the ship
+  public static String MOD_ID = "zzzzRNE_AM";
+  public static String PPT_DURATION_TYPE = LunaSettings.getString(MOD_ID, "pptDurationType");
+  public static int PPT_DURATION = LunaSettings.getInt(MOD_ID, "pptDuration"); //Modifies the PPT time of ships
+  public static String CR_LOSS_TYPE = LunaSettings.getString(MOD_ID, "crLossType");
+  public static int CR_LOSS = LunaSettings.getInt(MOD_ID, "crLoss"); // Modifies the CR Loss per second of ships
+  public static String SPM_TYPE = LunaSettings.getString(MOD_ID, "suppliesPerMonthType");
+  public static int SPM = LunaSettings.getInt(MOD_ID, "suppliesPerMonth"); // Modifies the suplies per month of ships
+  public static String FU_TYPE = LunaSettings.getString(MOD_ID, "fuelUsageType");
+  public static int FU = LunaSettings.getInt(MOD_ID, "fuelUsage"); // Modifies the fuel usage per month of ships
+  public static String STR_TYPE = LunaSettings.getString(MOD_ID, "suppliesToRecoverType");
+  public static int STR = LunaSettings.getInt(MOD_ID, "suppliesToRecover"); // Modifies the supplies to recover a ship after combat (how many supplies will a ship use after combat)
+  public static String STORAGE_TYPE = LunaSettings.getString(MOD_ID, "storageType");
+  public static int STORAGE = LunaSettings.getInt(MOD_ID, "storage"); // Modifies the storage capacity to the ship
+  public static String FUEL_TYPE = LunaSettings.getString(MOD_ID, "fuelType");
+  public static int FUEL = LunaSettings.getInt(MOD_ID, "fuel"); // Modifies the fuel capacity to the ship
+  public static String CREW_TYPE = LunaSettings.getString(MOD_ID, "crewType");
+  public static int CREW = LunaSettings.getInt(MOD_ID, "crew"); // Modifies the crew capacity to the ship
+  public static Map<String, String> TYPES = Map.of(
+          "Add", "+",
+          "Subtract", "-",
+          "Multiply", "x",
+          "Divide", "/"
+  );
   @Override
   public void applyEffectsBeforeShipCreation(ShipAPI.HullSize hullSize, MutableShipStatsAPI stats, String id) {
-    stats.getPeakCRDuration().modifyFlat(id, CR_DURATION); //Infinite PPT
-    stats.getCRLossPerSecondPercent().modifyMult(id, CR_LOSS); //No CR degradation
-    stats.getSuppliesPerMonth().modifyMult(id, SPP_REDUCTION_MULT); //Reduced supplies per month maintenance by 99.99%
-    stats.getFuelUseMod().modifyMult(id, FU_REDUCTION_MULT); //Reduced fuel usage by 99.99%
-    stats.getSuppliesToRecover().modifyMult(id, STR_REDUCTION_MULT); //Reduces supply usage to deploy a ship into combat by 99.99%
-    stats.getCargoMod().modifyFlat(id, STORAGE); //Increase cargo capacity by 1000
-    stats.getFuelMod().modifyFlat(id, FUEL); //Increase fuel capacity by 1000
-    stats.getMaxCrewMod().modifyFlat(id, CREW); //Increase crew capacity by 500
+    modifyStat(stats.getPeakCRDuration(), id, PPT_DURATION, PPT_DURATION_TYPE);
+    modifyStat(stats.getCRLossPerSecondPercent(), id, CR_LOSS, CR_LOSS_TYPE);
+    modifyStat(stats.getSuppliesPerMonth(), id, SPM, SPM_TYPE);
+    modifyStat(stats.getFuelUseMod(), id, FU, FU_TYPE);
+    modifyStat(stats.getSuppliesToRecover(), id, STR, STR_TYPE);
+    modifyStat(stats.getCargoMod(), id, STORAGE, STORAGE_TYPE);
+    modifyStat(stats.getFuelMod(), id, FUEL, FUEL_TYPE);
+    modifyStat(stats.getMaxCrewMod(), id, CREW, CREW_TYPE);
   }
   @Override
-  public void settingsChanged(String modID) throws NullPointerException{
-    CR_DURATION = LunaSettings.getFloat("zzzzRNE_AM", "CR_DURATION"); // Anithing above 100k in seconds the game considers it infinite
-    CR_LOSS = LunaSettings.getFloat("zzzzRNE_AM", "CR_LOSS"); // Multiply the CR Loss by 0, to have 0 combat readiness loss per second
-    SPP_REDUCTION_MULT = LunaSettings.getFloat("zzzzRNE_AM", "SPP_REDUCTION_MULT"); // Lower the suplies per month of ships by 99.99%
-    FU_REDUCTION_MULT = LunaSettings.getFloat("zzzzRNE_AM", "FU_REDUCTION_MULT"); // Lower the suplies per month of ships by 99.99%
-    STR_REDUCTION_MULT = LunaSettings.getFloat("zzzzRNE_AM", "STR_REDUCTION_MULT"); // Lower the suplies per month of ships by 99.99%
-    STORAGE = LunaSettings.getFloat("zzzzRNE_AM", "STORAGE"); // Add an extra 1000 storage capacity to the ship
-    FUEL = LunaSettings.getFloat("zzzzRNE_AM", "FUEL"); // Add an extra 1000 fuel capacity to the ship
-    CREW = LunaSettings.getFloat("zzzzRNE_AM", "CREW"); // Add an extra 1000 crew capacity to the ship
+  public void settingsChanged(String modID) throws NullPointerException {
+    PPT_DURATION_TYPE = LunaSettings.getString(modID, "pptDurationType");
+    PPT_DURATION = LunaSettings.getInt(modID, "pptDuration");
+    CR_LOSS_TYPE = LunaSettings.getString(modID, "crLossType");
+    CR_LOSS = LunaSettings.getInt(modID, "crLoss");
+    SPM_TYPE = LunaSettings.getString(modID, "suppliesPerMonthType");
+    SPM = LunaSettings.getInt(modID, "suppliesPerMonth");
+    FU_TYPE = LunaSettings.getString(modID, "fuelUsageType");
+    FU = LunaSettings.getInt(modID, "fuelUsage");
+    STR_TYPE = LunaSettings.getString(modID, "suppliesToRecoverType");
+    STR = LunaSettings.getInt(modID, "suppliesToRecover");
+    STORAGE_TYPE = LunaSettings.getString(modID, "storageType");
+    STORAGE = LunaSettings.getInt(modID, "storage");
+    FUEL_TYPE = LunaSettings.getString(modID, "fuelType");
+    FUEL = LunaSettings.getInt(modID, "fuel");
+    CREW_TYPE = LunaSettings.getString(modID, "crewType");
+    CREW = LunaSettings.getInt(modID, "crew");
   }
   @Override
   public String getDescriptionParam(int index, ShipAPI.HullSize hullSize) {
-    if (index == 0) return String.valueOf(CR_DURATION);
-    if (index == 1) return String.valueOf(CR_LOSS);
-    if (index == 2) return String.valueOf(SPP_REDUCTION_MULT);
-    if (index == 3) return String.valueOf(FU_REDUCTION_MULT);
-    if (index == 4) return String.valueOf(STR_REDUCTION_MULT);
-    if (index == 5) return String.valueOf(STORAGE);
-    if (index == 6) return String.valueOf(FUEL);
-    if (index == 7) return String.valueOf(CREW);
+    if (index == 0) return getType(PPT_DURATION_TYPE) + PPT_DURATION;
+    if (index == 1) return getType(CR_LOSS_TYPE) + CR_LOSS;
+    if (index == 2) return getType(SPM_TYPE) + SPM;
+    if (index == 3) return getType(FU_TYPE) + FU;
+    if (index == 4) return getType(STR_TYPE) + STR;
+    if (index == 5) return getType(STORAGE_TYPE) + STORAGE;
+    if (index == 6) return getType(FUEL_TYPE) + FUEL;
+    if (index == 7) return getType(CREW_TYPE) + CREW;
     return null;
+  }
+  private void modifyStat(MutableStat stat, String id, float value, String type) {
+    switch (type) {
+      case "Add":
+        stat.modifyFlat(id, value);
+        break;
+      case "Subtract":
+        stat.modifyFlat(id, -value);
+        break;
+      case "Multiply":
+        if (value == 0f) return; //Don't multiply by 0
+        stat.modifyMult(id, value);
+        break;
+      case "Divide":
+        if (value == 0f) return; //Can't divide by 0
+        stat.modifyMult(id, 1f / value);
+        break;
+    }
+  }
+  private void modifyStat(StatBonus stat, String id, float value, String type) {
+    switch (type) {
+      case "Add":
+        stat.modifyFlat(id, value);
+        break;
+      case "Subtract":
+        stat.modifyFlat(id, -value);
+        break;
+      case "Multiply":
+        if (value == 0f) return; //Don't multiply by 0
+        stat.modifyMult(id, value);
+        break;
+      case "Divide":
+        if (value == 0f) return; //Can't divide by 0
+        stat.modifyMult(id, 1f / value);
+        break;
+    }
+  }
+  private String getType(String modeType) {
+    return TYPES.getOrDefault(modeType, "Add");
   }
 }
