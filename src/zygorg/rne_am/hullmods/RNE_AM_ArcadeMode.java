@@ -3,6 +3,7 @@ import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.MutableStat;
 import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.StatBonus;
 import java.util.Map;
 import lunalib.lunaSettings.LunaSettings;
 import lunalib.lunaSettings.LunaSettingsListener;
@@ -32,36 +33,36 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
   );
   @Override
   public void applyEffectsBeforeShipCreation(ShipAPI.HullSize hullSize, MutableShipStatsAPI stats, String id) {
-    Map<MutableStat, Object[]> STATS = Map.of(
-            stats.getPeakCRDuration(), new Object[] {PPT_DURATION, PPT_DURATION_TYPE}, //PPT Duration
-            stats.getCRLossPerSecondPercent(), new Object[] {CR_LOSS, CR_LOSS_TYPE}, //CR Degradation per second once the PPT reaches 0
-            stats.getSuppliesPerMonth(), new Object[] {SPM, SPM_TYPE}, //Supplies per month cost of the ship
-            stats.getFuelUseMod(), new Object[] {FU, FU_TYPE}, //Fuel usage per light year of the ship
-            stats.getSuppliesToRecover(), new Object[] {STR, STR_TYPE}, //Supply usage per fight
-            stats.getCargoMod(), new Object[] {STORAGE, STORAGE_TYPE}, //Cargo capacity of the ship
-            stats.getFuelMod(), new Object[] {FUEL, FUEL_TYPE}, //Fuel capacity of the ship
-            stats.getMaxCrewMod(), new Object[] {CREW, CREW_TYPE} //Crew capacity of the ship
+    Map<MutableShipStatsAPI, Object[]> STATS = Map.of(
+            (MutableShipStatsAPI) stats.getPeakCRDuration(), new Object[] {PPT_DURATION, PPT_DURATION_TYPE}, //PPT Duration
+            (MutableShipStatsAPI) stats.getCRLossPerSecondPercent(), new Object[] {CR_LOSS, CR_LOSS_TYPE}, //CR Degradation per second once the PPT reaches 0
+            (MutableShipStatsAPI) stats.getSuppliesPerMonth(), new Object[] {SPM, SPM_TYPE}, //Supplies per month cost of the ship
+            (MutableShipStatsAPI) stats.getFuelUseMod(), new Object[] {FU, FU_TYPE}, //Fuel usage per light year of the ship
+            (MutableShipStatsAPI) stats.getSuppliesToRecover(), new Object[] {STR, STR_TYPE}, //Supply usage per fight
+            (MutableShipStatsAPI) stats.getCargoMod(), new Object[] {STORAGE, STORAGE_TYPE}, //Cargo capacity of the ship
+            (MutableShipStatsAPI) stats.getFuelMod(), new Object[] {FUEL, FUEL_TYPE}, //Fuel capacity of the ship
+            (MutableShipStatsAPI) stats.getMaxCrewMod(), new Object[] {CREW, CREW_TYPE} //Crew capacity of the ship
     );
     STATS.forEach((stat, values) -> modifyStat(stat, id, (float) values[0], (String) values[1]));
   }
   @Override
   public void settingsChanged(String modID) throws NullPointerException {
-    PPT_DURATION_TYPE = LunaSettings.getString(MOD_ID, "pptDurationType");
-    PPT_DURATION = LunaSettings.getInt(MOD_ID, "pptDuration");
-    CR_LOSS_TYPE = LunaSettings.getString(MOD_ID, "crLossType");
-    CR_LOSS = LunaSettings.getInt(MOD_ID, "crLoss");
-    SPM_TYPE = LunaSettings.getString(MOD_ID, "suppliesPerMonthType");
-    SPM = LunaSettings.getInt(MOD_ID, "suppliesPerMonth");
-    FU_TYPE = LunaSettings.getString(MOD_ID, "fuelUsageType");
-    FU = LunaSettings.getInt(MOD_ID, "fuelUsage");
-    STR_TYPE = LunaSettings.getString(MOD_ID, "suppliesToRecoverType");
-    STR = LunaSettings.getInt(MOD_ID, "suppliesToRecover");
-    STORAGE_TYPE = LunaSettings.getString(MOD_ID, "storageType");
-    STORAGE = LunaSettings.getInt(MOD_ID, "storage");
-    FUEL_TYPE = LunaSettings.getString(MOD_ID, "fuelType");
-    FUEL = LunaSettings.getInt(MOD_ID, "fuel");
-    CREW_TYPE = LunaSettings.getString(MOD_ID, "crewType");
-    CREW = LunaSettings.getInt(MOD_ID, "crew");
+    PPT_DURATION_TYPE = LunaSettings.getString(modID, "pptDurationType");
+    PPT_DURATION = LunaSettings.getInt(modID, "pptDuration");
+    CR_LOSS_TYPE = LunaSettings.getString(modID, "crLossType");
+    CR_LOSS = LunaSettings.getInt(modID, "crLoss");
+    SPM_TYPE = LunaSettings.getString(modID, "suppliesPerMonthType");
+    SPM = LunaSettings.getInt(modID, "suppliesPerMonth");
+    FU_TYPE = LunaSettings.getString(modID, "fuelUsageType");
+    FU = LunaSettings.getInt(modID, "fuelUsage");
+    STR_TYPE = LunaSettings.getString(modID, "suppliesToRecoverType");
+    STR = LunaSettings.getInt(modID, "suppliesToRecover");
+    STORAGE_TYPE = LunaSettings.getString(modID, "storageType");
+    STORAGE = LunaSettings.getInt(modID, "storage");
+    FUEL_TYPE = LunaSettings.getString(modID, "fuelType");
+    FUEL = LunaSettings.getInt(modID, "fuel");
+    CREW_TYPE = LunaSettings.getString(modID, "crewType");
+    CREW = LunaSettings.getInt(modID, "crew");
   }
   @Override
   public String getDescriptionParam(int index, ShipAPI.HullSize hullSize) {
@@ -76,6 +77,24 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
     return null;
   }
   private void modifyStat(MutableStat stat, String id, float value, String type) {
+    switch (type) {
+      case "Add":
+        stat.modifyFlat(id, value);
+        break;
+      case "Subtract":
+        stat.modifyFlat(id, -value);
+        break;
+      case "Multiply":
+        if (value == 0f) return; //Don't multiply by 0
+        stat.modifyMult(id, value);
+        break;
+      case "Divide":
+        if (value == 0f) return; //Can't divide by 0
+        stat.modifyMult(id, 1f / value);
+        break;
+    }
+  }
+  private void modifyStat(StatBonus stat, String id, float value, String type) {
     switch (type) {
       case "Add":
         stat.modifyFlat(id, value);
