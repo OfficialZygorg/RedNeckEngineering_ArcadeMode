@@ -32,17 +32,17 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
   );
   @Override
   public void applyEffectsBeforeShipCreation(ShipAPI.HullSize hullSize, MutableShipStatsAPI stats, String id) {
-    Map<MutableShipStatsAPI, Object[]> STATS = Map.of(
-            (MutableShipStatsAPI) stats.getPeakCRDuration(), new Object[] {PPT_DURATION, PPT_DURATION_TYPE}, //PPT Duration
-            (MutableShipStatsAPI) stats.getCRLossPerSecondPercent(), new Object[] {CR_LOSS, CR_LOSS_TYPE}, //CR Degradation per second once the PPT reaches 0
-            (MutableShipStatsAPI) stats.getSuppliesPerMonth(), new Object[] {SPM, SPM_TYPE}, //Supplies per month cost of the ship
-            (MutableShipStatsAPI) stats.getFuelUseMod(), new Object[] {FU, FU_TYPE}, //Fuel usage per light year of the ship
-            (MutableShipStatsAPI) stats.getSuppliesToRecover(), new Object[] {STR, STR_TYPE}, //Supply usage per fight
-            (MutableShipStatsAPI) stats.getCargoMod(), new Object[] {STORAGE, STORAGE_TYPE}, //Cargo capacity of the ship
-            (MutableShipStatsAPI) stats.getFuelMod(), new Object[] {FUEL, FUEL_TYPE}, //Fuel capacity of the ship
-            (MutableShipStatsAPI) stats.getMaxCrewMod(), new Object[] {CREW, CREW_TYPE} //Crew capacity of the ship
+    Map<MutableStat, Object[]> STATS = Map.of(
+            stats.getPeakCRDuration(), new Object[] {PPT_DURATION, PPT_DURATION_TYPE}, //PPT Duration
+            stats.getCRLossPerSecondPercent(), new Object[] {CR_LOSS, CR_LOSS_TYPE}, //CR Degradation per second once the PPT reaches 0
+            stats.getSuppliesPerMonth(), new Object[] {SPM, SPM_TYPE}, //Supplies per month cost of the ship
+            stats.getFuelUseMod(), new Object[] {FU, FU_TYPE}, //Fuel usage per light year of the ship
+            stats.getSuppliesToRecover(), new Object[] {STR, STR_TYPE}, //Supply usage per fight
+            stats.getCargoMod(), new Object[] {STORAGE, STORAGE_TYPE}, //Cargo capacity of the ship
+            stats.getFuelMod(), new Object[] {FUEL, FUEL_TYPE}, //Fuel capacity of the ship
+            stats.getMaxCrewMod(), new Object[] {CREW, CREW_TYPE} //Crew capacity of the ship
     );
-    STATS.forEach((stat, values) -> modifyStat((MutableStat) stat, id, (float) values[0], (String) values[1]));
+    STATS.forEach((stat, values) -> modifyStat(stat, id, (float) values[0], (String) values[1]));
   }
   @Override
   public void settingsChanged(String modID) throws NullPointerException {
