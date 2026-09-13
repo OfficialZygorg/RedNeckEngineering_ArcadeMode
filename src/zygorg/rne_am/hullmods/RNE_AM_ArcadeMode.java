@@ -4,27 +4,30 @@ import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.MutableStat;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.StatBonus;
+import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import java.util.Map;
 import lunalib.lunaSettings.LunaSettings;
 import lunalib.lunaSettings.LunaSettingsListener;
 public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListener {
   public static String MOD_ID = "zzzzRNE_AM";
   public static String PPT_DURATION_TYPE = LunaSettings.getString(MOD_ID, "pptDurationType");
-  public static int PPT_DURATION = LunaSettings.getInt(MOD_ID, "pptDuration"); //Modifies the PPT time of ships
   public static String CR_LOSS_TYPE = LunaSettings.getString(MOD_ID, "crLossType");
-  public static int CR_LOSS = LunaSettings.getInt(MOD_ID, "crLoss"); // Modifies the CR Loss per second of ships
   public static String SPM_TYPE = LunaSettings.getString(MOD_ID, "suppliesPerMonthType");
-  public static int SPM = LunaSettings.getInt(MOD_ID, "suppliesPerMonth"); // Modifies the suplies per month of ships
   public static String FU_TYPE = LunaSettings.getString(MOD_ID, "fuelUsageType");
-  public static int FU = LunaSettings.getInt(MOD_ID, "fuelUsage"); // Modifies the fuel usage per month of ships
   public static String STR_TYPE = LunaSettings.getString(MOD_ID, "suppliesToRecoverType");
-  public static int STR = LunaSettings.getInt(MOD_ID, "suppliesToRecover"); // Modifies the supplies to recover a ship after combat (how many supplies will a ship use after combat)
   public static String STORAGE_TYPE = LunaSettings.getString(MOD_ID, "storageType");
-  public static int STORAGE = LunaSettings.getInt(MOD_ID, "storage"); // Modifies the storage capacity to the ship
   public static String FUEL_TYPE = LunaSettings.getString(MOD_ID, "fuelType");
-  public static int FUEL = LunaSettings.getInt(MOD_ID, "fuel"); // Modifies the fuel capacity to the ship
   public static String CREW_TYPE = LunaSettings.getString(MOD_ID, "crewType");
+  public static String SALVAGE_TYPE = LunaSettings.getString(MOD_ID, "salvageType");
+  public static int PPT_DURATION = LunaSettings.getInt(MOD_ID, "pptDuration"); //Modifies the PPT time of ships
+  public static int CR_LOSS = LunaSettings.getInt(MOD_ID, "crLoss"); // Modifies the CR Loss per second of ships
+  public static int SPM = LunaSettings.getInt(MOD_ID, "suppliesPerMonth"); // Modifies the suplies per month of ships
+  public static int FU = LunaSettings.getInt(MOD_ID, "fuelUsage"); // Modifies the fuel usage per month of ships
+  public static int STR = LunaSettings.getInt(MOD_ID, "suppliesToRecover"); // Modifies the supplies to recover a ship after combat (how many supplies will a ship use after combat)
+  public static int STORAGE = LunaSettings.getInt(MOD_ID, "storage"); // Modifies the storage capacity to the ship
+  public static int FUEL = LunaSettings.getInt(MOD_ID, "fuel"); // Modifies the fuel capacity to the ship
   public static int CREW = LunaSettings.getInt(MOD_ID, "crew"); // Modifies the crew capacity to the ship
+  public static int SALVAGE = LunaSettings.getInt(MOD_ID, "salvage"); // Modifies the bonus salvage
   public static Map<String, String> TYPES = Map.of(
           "Add", "+",
           "Subtract", "-",
@@ -41,25 +44,28 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
     modifyStat(stats.getCargoMod(), id, STORAGE, STORAGE_TYPE);
     modifyStat(stats.getFuelMod(), id, FUEL, FUEL_TYPE);
     modifyStat(stats.getMaxCrewMod(), id, CREW, CREW_TYPE);
+    modifyStat(stats.getDynamic().getMod(Stats.SALVAGE_VALUE_MULT_MOD), id, SALVAGE, SALVAGE_TYPE);
   }
   @Override
   public void settingsChanged(String modID) throws NullPointerException {
     PPT_DURATION_TYPE = LunaSettings.getString(modID, "pptDurationType");
-    PPT_DURATION = LunaSettings.getInt(modID, "pptDuration");
     CR_LOSS_TYPE = LunaSettings.getString(modID, "crLossType");
-    CR_LOSS = LunaSettings.getInt(modID, "crLoss");
     SPM_TYPE = LunaSettings.getString(modID, "suppliesPerMonthType");
-    SPM = LunaSettings.getInt(modID, "suppliesPerMonth");
     FU_TYPE = LunaSettings.getString(modID, "fuelUsageType");
-    FU = LunaSettings.getInt(modID, "fuelUsage");
     STR_TYPE = LunaSettings.getString(modID, "suppliesToRecoverType");
-    STR = LunaSettings.getInt(modID, "suppliesToRecover");
     STORAGE_TYPE = LunaSettings.getString(modID, "storageType");
-    STORAGE = LunaSettings.getInt(modID, "storage");
     FUEL_TYPE = LunaSettings.getString(modID, "fuelType");
-    FUEL = LunaSettings.getInt(modID, "fuel");
     CREW_TYPE = LunaSettings.getString(modID, "crewType");
+    SALVAGE_TYPE = LunaSettings.getString(MOD_ID, "salvageType");
+    PPT_DURATION = LunaSettings.getInt(modID, "pptDuration");
+    CR_LOSS = LunaSettings.getInt(modID, "crLoss");
+    SPM = LunaSettings.getInt(modID, "suppliesPerMonth");
+    FU = LunaSettings.getInt(modID, "fuelUsage");
+    STR = LunaSettings.getInt(modID, "suppliesToRecover");
+    STORAGE = LunaSettings.getInt(modID, "storage");
+    FUEL = LunaSettings.getInt(modID, "fuel");
     CREW = LunaSettings.getInt(modID, "crew");
+    SALVAGE = LunaSettings.getInt(MOD_ID, "salvage");
   }
   @Override
   public String getDescriptionParam(int index, ShipAPI.HullSize hullSize) {
@@ -71,6 +77,7 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
     if (index == 5) return getType(STORAGE_TYPE) + STORAGE;
     if (index == 6) return getType(FUEL_TYPE) + FUEL;
     if (index == 7) return getType(CREW_TYPE) + CREW;
+    if (index == 8) return getType(SALVAGE_TYPE) + SALVAGE;
     return null;
   }
   private void modifyStat(MutableStat stat, String id, float value, String type) {

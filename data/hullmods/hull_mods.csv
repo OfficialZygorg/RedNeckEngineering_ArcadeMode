@@ -8,4 +8,5 @@ Fuel Usage/ly: %s
 Supplies To Recover: %s
 Cargo: %s
 Fuel: %s
-Crew: %s",,,graphics/hullmods/rne_hm_placeholder.jpg
+Crew: %s
+Salvage: %s",,,graphics/hullmods/rne_hm_placeholder.jpg
