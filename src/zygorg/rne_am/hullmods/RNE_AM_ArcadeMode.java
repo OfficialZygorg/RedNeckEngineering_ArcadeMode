@@ -100,6 +100,7 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
   }
   private void modifyStat(StatBonus stat, String id, float value, String type) {
     log.log(Level.INFO, "(DEBUG) value:" + value + " type: " + type);
+    if (type == null) return;
     switch (type) {
       case "Add":
         stat.modifyFlat(id, value);
