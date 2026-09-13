@@ -7,7 +7,10 @@ import com.fs.starfarer.api.combat.StatBonus;
 import java.util.Map;
 import lunalib.lunaSettings.LunaSettings;
 import lunalib.lunaSettings.LunaSettingsListener;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListener {
+  private static final Logger log = Logger.getLogger(RNE_AM_ArcadeMode.class);
   public static String MOD_ID = "zzzzRNE_AM";
   public static String PPT_DURATION_TYPE = LunaSettings.getString(MOD_ID, "pptDurationType");
   public static String CR_LOSS_TYPE = LunaSettings.getString(MOD_ID, "crLossType");
@@ -17,14 +20,14 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
   public static String STORAGE_TYPE = LunaSettings.getString(MOD_ID, "storageType");
   public static String FUEL_TYPE = LunaSettings.getString(MOD_ID, "fuelType");
   public static String CREW_TYPE = LunaSettings.getString(MOD_ID, "crewType");
-  public static int PPT_DURATION = LunaSettings.getInt(MOD_ID, "pptDuration") == null ? 0 : LunaSettings.getInt(MOD_ID, "pptDuration"); //Modifies the PPT time of ships
-  public static int CR_LOSS = LunaSettings.getInt(MOD_ID, "crLoss") == null ? 0 : LunaSettings.getInt(MOD_ID, "crLoss"); // Modifies the CR Loss per second of ships
-  public static int SPM = LunaSettings.getInt(MOD_ID, "suppliesPerMonth") == null ? 0 : LunaSettings.getInt(MOD_ID, "suppliesPerMonth"); // Modifies the suplies per month of ships
-  public static int FU = LunaSettings.getInt(MOD_ID, "fuelUsage") == null ? 0 : LunaSettings.getInt(MOD_ID, "fuelUsage"); // Modifies the fuel usage per month of ships
-  public static int STR = LunaSettings.getInt(MOD_ID, "suppliesToRecover") == null ? 0 : LunaSettings.getInt(MOD_ID, "suppliesToRecover"); // Modifies the supplies to recover a ship after combat (how many supplies will a ship use after combat)
-  public static int STORAGE = LunaSettings.getInt(MOD_ID, "storage") == null ? 0 : LunaSettings.getInt(MOD_ID, "storage"); // Modifies the storage capacity to the ship
-  public static int FUEL = LunaSettings.getInt(MOD_ID, "fuel") == null ? 0 : LunaSettings.getInt(MOD_ID, "fuel"); // Modifies the fuel capacity to the ship
-  public static int CREW = LunaSettings.getInt(MOD_ID, "crew") == null ? 0 : LunaSettings.getInt(MOD_ID, "crew"); // Modifies the crew capacity to the ship
+  public static int PPT_DURATION = LunaSettings.getInt(MOD_ID, "pptDuration"); //Modifies the PPT time of ships
+  public static int CR_LOSS = LunaSettings.getInt(MOD_ID, "crLoss"); // Modifies the CR Loss per second of ships
+  public static int SPM = LunaSettings.getInt(MOD_ID, "suppliesPerMonth"); // Modifies the suplies per month of ships
+  public static int FU = LunaSettings.getInt(MOD_ID, "fuelUsage"); // Modifies the fuel usage per month of ships
+  public static int STR = LunaSettings.getInt(MOD_ID, "suppliesToRecover"); // Modifies the supplies to recover a ship after combat (how many supplies will a ship use after combat)
+  public static int STORAGE = LunaSettings.getInt(MOD_ID, "storage"); // Modifies the storage capacity to the ship
+  public static int FUEL = LunaSettings.getInt(MOD_ID, "fuel"); // Modifies the fuel capacity to the ship
+  public static int CREW = LunaSettings.getInt(MOD_ID, "crew"); // Modifies the crew capacity to the ship
   public static Map<String, String> TYPES = Map.of(
           "Add", "+",
           "Subtract", "-",
@@ -53,14 +56,14 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
     STORAGE_TYPE = LunaSettings.getString(modID, "storageType");
     FUEL_TYPE = LunaSettings.getString(modID, "fuelType");
     CREW_TYPE = LunaSettings.getString(modID, "crewType");
-    PPT_DURATION = LunaSettings.getInt(modID, "pptDuration") == null ? 0 : LunaSettings.getInt(modID, "pptDuration");
-    CR_LOSS = LunaSettings.getInt(modID, "crLoss") == null ? 0 : LunaSettings.getInt(modID, "crLoss");
-    SPM = LunaSettings.getInt(modID, "suppliesPerMonth") == null ? 0 : LunaSettings.getInt(modID, "suppliesPerMonth");
-    FU = LunaSettings.getInt(modID, "fuelUsage") == null ? 0 : LunaSettings.getInt(modID, "fuelUsage");
-    STR = LunaSettings.getInt(modID, "suppliesToRecover") == null ? 0 : LunaSettings.getInt(modID, "suppliesToRecover");
-    STORAGE = LunaSettings.getInt(modID, "storage") == null ? 0 : LunaSettings.getInt(modID, "storage");
-    FUEL = LunaSettings.getInt(modID, "fuel") == null ? 0 : LunaSettings.getInt(modID, "fuel");
-    CREW = LunaSettings.getInt(modID, "crew") == null ? 0 : LunaSettings.getInt(modID, "crew");
+    PPT_DURATION = LunaSettings.getInt(modID, "pptDuration");
+    CR_LOSS = LunaSettings.getInt(modID, "crLoss");
+    SPM = LunaSettings.getInt(modID, "suppliesPerMonth");
+    FU = LunaSettings.getInt(modID, "fuelUsage");
+    STR = LunaSettings.getInt(modID, "suppliesToRecover");
+    STORAGE = LunaSettings.getInt(modID, "storage");
+    FUEL = LunaSettings.getInt(modID, "fuel");
+    CREW = LunaSettings.getInt(modID, "crew");
   }
   @Override
   public String getDescriptionParam(int index, ShipAPI.HullSize hullSize) {
@@ -75,6 +78,7 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
     return null;
   }
   private void modifyStat(MutableStat stat, String id, float value, String type) {
+    log.log(Level.INFO, "(DEBUG) value:" + value + " type: " + type);
     switch (type) {
       case "Add":
         stat.modifyFlat(id, value);
@@ -89,10 +93,13 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
       case "Divide":
         if (value == 0f) return; //Can't divide by 0
         stat.modifyMult(id, 1f / value);
+        break;
+      default:
         break;
     }
   }
   private void modifyStat(StatBonus stat, String id, float value, String type) {
+    log.log(Level.INFO, "(DEBUG) value:" + value + " type: " + type);
     switch (type) {
       case "Add":
         stat.modifyFlat(id, value);
@@ -107,6 +114,8 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
       case "Divide":
         if (value == 0f) return; //Can't divide by 0
         stat.modifyMult(id, 1f / value);
+        break;
+      default:
         break;
     }
   }
