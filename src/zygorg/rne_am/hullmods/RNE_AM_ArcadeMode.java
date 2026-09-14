@@ -81,6 +81,7 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
     return null;
   }
   private void modifyStat(MutableStat stat, String id, float value, String type) {
+    if (type == null) return;
     switch (type) {
       case "Add":
         stat.modifyFlat(id, value);
@@ -99,6 +100,7 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
     }
   }
   private void modifyStat(StatBonus stat, String id, float value, String type) {
+    if (type == null) return;
     switch (type) {
       case "Add":
         stat.modifyFlat(id, value);

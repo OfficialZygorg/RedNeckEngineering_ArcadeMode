@@ -1,12 +1,15 @@
-Version 0.1.2-Test
+Version 0.1.2
 
 Added:
 - LunaLib settings icon
-- Salvaging modifier (Unknown if it works)
+- Salvaging modifier
 
 Modified:
 - Increased max CR degradation amount in settings
 - Zip generator to exclude one more file
+
+Fixed:
+- CTD When going to the mod's LunaLib configs (Reported by HoeHarto [kecoasetan])
 
 Version 0.1.1
 
