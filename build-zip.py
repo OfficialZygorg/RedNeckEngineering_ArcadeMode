@@ -20,6 +20,7 @@ EXCLUDED_PATHS = {
     ".gitignore",
     ".iml",
     "build-zip.py",
+    "RedNeckEngineering_ArcadeMode.iml"
 }
 
 # Directories that should NOT be included in the release ZIP.

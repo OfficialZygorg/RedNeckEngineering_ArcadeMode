@@ -1,20 +1,20 @@
 fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
 campaignLayerHeader,Campaign Layer Settings,Header,Campaign Settings,,These values affect the ships outside the combat layer,,,Campaign
 combatLayerHeader,Combat Layer Settings,Header,Combat Settings,,These values affect the ship inside the combat layer,,,Combat
-pptDurationType,Type Selector,Radio,Add,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Combat
+pptDurationType,PPT,Radio,Add,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Combat
 pptDuration,CR Duration,Int,0,,"Adds/reduces/multiplies/divides the Peak Performance Time (Aka, the time the ship has before its Combat Readiness starts dropping)
 Min 0 - Max 1M
 A value greater than 100k (Or 100000) in a ship's PPT will make it ""Unlimited"" in the Combat Layer
 Add/Multiply will add more time to it, Subtract/Divide will remove time from it",0,1000000,Combat
-crLossType,Type Selector,Radio,Add,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Combat
+crLossType,CR,Radio,Add,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Combat
 crLoss,CR Degradation Speed,Int,0,,"Adds/reduces/multiplies/divides the Combat Readiness loss per second (Aka, how fast will the Combat Readiness drops per second)
-Min 0 - Max 100
-Add/Multiply will make it go down faster, Subtract/Divide will make it slower",0,100,Combat
-suppliesPerMonthType,Type Selector,Radio,Add,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Campaign
+Min 0 - Max 1M
+Add/Multiply will make it go down faster, Subtract/Divide will make it slower",0,1000000,Combat
+suppliesPerMonthType,Supplies/month,Radio,Add,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Campaign
 suppliesPerMonth,Ship Supplies Per month usage,Int,0,,"Adds/reduces/multiplies/divides the Supplies Per Month usage (Aka, how many supplies will it consume in a month)
 Min 0 - Max 1M
 Add/Multiply increase its usage, Subtract/Divide will decrease its usage",0,1000000,Campaign
-fuelUsageType,Type Selector,Radio,Add,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Campaign
+fuelUsageType,Fuel/ly,Radio,Add,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Campaign
 fuelUsage,Fuel Usage per light year,Int,0,,"Adds/reduces/multiplies/divides the Fuel Usage per lightyear (Aka, how much fuel will it consume by traveling a lightyear in hyperspace)
 Min 0 - Max 1M
 Add/Multiply increase its usage, Subtract/Divide will decrease its usage",0,1000000,Campaign
@@ -22,15 +22,19 @@ suppliesToRecoverType,Type Selector,Radio,Add,"Add,Subtract,Multiply,Divide",Def
 suppliesToRecover,Supplies To Recover ship after  combat,Int,0,,"Adds/reduces/multiplies/divides the Supplies To Recover a ship(Aka, how many supplies will it consume when a fight ends)
 Min 0 - Max 1M
 Add/Multiply increase its usage, Subtract/Divide will decrease its usage",0,1000000,Combat
-storageType,Type Selector,Radio,Add,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Campaign
+storageType,Cargo size,Radio,Add,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Campaign
 storage,Cargo size,Int,0,,"Adds/reduces/multiplies/divides the Cargo storage size (Aka, how much cargo)
 Min 0 - Max 1M
 Add/Multiply increase it Subtract/Divide will decrease it",0,1000000,Campaign
-fuelType,Type Selector,Radio,Add,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Campaign
+fuelType,Fuel,Radio,Add,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Campaign
 fuel,Fuel storage size,Int,0,,"Adds/reduces/multiplies/divides the Fuel storage size (Aka, how much fuel)
 Min 0 - Max 1M
 Add/Multiply increase it Subtract/Divide will decrease it",0,1000000,Campaign
-crewType,Type Selector,Radio,Add,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Campaign
+crewType,Crew,Radio,Add,"Add,Subtract,Multiply,Divide",Defines the mode of the setting bellow,,,Campaign
 crew,Crew complement size,Int,0,,"Adds/reduces/multiplies/divides the Crew complement size (Aka, how much crew)
 Min 0 - Max 1M
 Add/Multiply increase it Subtract/Divide will decrease it",0,1000000,Campaign
+salvageType,Salvage,Radio,Multiply,"Multiply,Divide",Defines the mode of the setting bellow,,,Campaign
+salvage,Salvage bonus,Int,0,,"Multiplies/divides the Salvaging of debree (Aka, how much extra salvage you'll get on salvaging operations)
+Min 0 - Max 1M
+Multiply increases it, Divide will decrease it",0,1000000,Campaign
