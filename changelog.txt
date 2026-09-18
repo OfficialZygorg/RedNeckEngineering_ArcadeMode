@@ -1,3 +1,9 @@
+Version 0.1.2-F1
+
+Fixed:
+- CTD when hovering the hullmod
+- Hullmod not giving effects
+
 Version 0.1.2
 
 Added:

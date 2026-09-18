@@ -118,7 +118,8 @@ public class RNE_AM_ArcadeMode extends BaseHullMod implements LunaSettingsListen
         break;
     }
   }
-  private String getType(String modeType) {
-    return TYPES.getOrDefault(modeType, "Add");
+  private String getType(String type) {
+    if (type == null) return "Add";
+    return TYPES.getOrDefault(type, "Add");
   }
 }
